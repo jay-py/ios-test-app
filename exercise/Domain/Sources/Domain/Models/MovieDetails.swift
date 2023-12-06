@@ -9,7 +9,7 @@
 import Foundation
 
 public struct MovieDetails: BaseModel {
-    
+
     public let id = UUID()
     let title: String
     let poster: String

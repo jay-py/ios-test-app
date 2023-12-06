@@ -20,7 +20,7 @@ final class SplashViewModel: ObservableObject {
 
     func fetchData() async {
         do {
-            let _ = try await moviesRepo.getMovies(title: "batman", page: 1) // load 9 movies into cache
+            let _ = try await moviesRepo.getMovies(title: "batman", page: 1)  // load 9 movies into cache
             let _ = try await moviesRepo.getMovies(title: "batman", page: 2)
             self.isLoading = false
         } catch {

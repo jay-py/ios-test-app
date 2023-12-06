@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  MovieDetailsRepository.swift
+//
 //
 //  Created by Jean paul on 2023-12-06.
 //
@@ -11,7 +11,7 @@ public actor MovieDetailsRepository {
 
     private let cache = Cache<String, MovieDetails>()
     private let mockData: Bool
-    
+
     public init(mockData: Bool = false) {
         self.mockData = mockData
     }
@@ -31,5 +31,3 @@ public actor MovieDetailsRepository {
         return result
     }
 }
-
-

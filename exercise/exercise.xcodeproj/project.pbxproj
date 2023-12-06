@@ -203,6 +203,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2608AA242B1F6AEF00E1E055 /* Build configuration list for PBXNativeTarget "exercise" */;
 			buildPhases = (
+				26557C972B2024F60093C87D /* Format Files */,
 				2608A9FC2B1F6AED00E1E055 /* Sources */,
 				2608A9FD2B1F6AED00E1E055 /* Frameworks */,
 				2608A9FE2B1F6AED00E1E055 /* Resources */,
@@ -325,6 +326,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26557C972B2024F60093C87D /* Format Files */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Format Files";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swift-format >/dev/null; then\n    cat ${PROJECT_DIR}\n    swift-format format -i -r ${PROJECT_DIR} --configuration ../swift-format.json\nelse\n    echo \"warning: swift-format not installed\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2608A9FC2B1F6AED00E1E055 /* Sources */ = {

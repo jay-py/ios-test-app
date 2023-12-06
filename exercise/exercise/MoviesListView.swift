@@ -5,12 +5,12 @@
 //  Created by Jean paul on 2023-12-06.
 //
 
-import Domain
 import Design
+import Domain
 import SwiftUI
 
 struct MoviesListView: View {
-    
+
     @StateObject private var vm: MoviesListViewModel
 
     init(_ moviesRepo: MoviesRepository) {
@@ -18,7 +18,7 @@ struct MoviesListView: View {
             wrappedValue:
                 MoviesListViewModel(moviesRepo))
     }
-    
+
     var body: some View {
         NavigationStack {
             content
@@ -30,7 +30,7 @@ struct MoviesListView: View {
                 .navigationTitle("navigation_title")
         }
     }
-    
+
     var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack {
@@ -43,7 +43,7 @@ struct MoviesListView: View {
             await vm.fetchData()
         }
     }
-    
+
     @ViewBuilder
     func cell(_ item: Movie.MovieItem) -> some View {
         Button {
@@ -65,11 +65,11 @@ struct MoviesListView: View {
                     .fontWeight(.medium)
                     .foregroundStyle(.white)
                 Spacer()
-                
+
             }
             .padding(8)
             .frame(maxWidth: .infinity)
-            .background (
+            .background(
                 RoundedRectangle(cornerRadius: 5)
                     .strokeBorder(lineWidth: 3)
                     .foregroundColor(.themeColor)

@@ -9,43 +9,38 @@
 import Foundation
 
 public struct Movie: BaseModel {
-    
-    
+
     public let id = UUID()
     public let items: [MovieItem]
-    
+
     enum CodingKeys: String, CodingKey {
         case items = "Search"
     }
-    
+
     public struct MovieItem: BaseModel {
         static var mockData: Data! = nil
-        
+
         public let id = UUID()
-        
+
         let title: String
         let year: String
         public let imdbID: String
         let poster: String
-        
+
         public var displayTitle: String {
             return "\(self.title) (\(self.year))"
         }
         public var imageURL: URL? {
             return URL(string: self.poster)
         }
-        
+
         enum CodingKeys: String, CodingKey {
             case title = "Title"
             case imdbID = "imdbID"
             case poster = "Poster"
             case year = "Year"
         }
-        
-    }
-    
-    public static func == (lhs: Movie, rhs: Movie) -> Bool {
-        lhs.id == rhs.id
+
     }
 }
 

@@ -9,6 +9,6 @@ import Foundation
 
 protocol BaseModel: Codable, Identifiable {
     #if DEBUG
-    static var mockData: Data! { get }
+        static var mockData: Data! { get }
     #endif
 }

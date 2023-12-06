@@ -13,7 +13,7 @@ import SwiftUI
 final class MoviesListViewModel: ObservableObject {
     private let TAG = "MoviesListViewModel"
     private let moviesRepo: MoviesRepository
-    
+
     @Published private(set) var movies = [Movie.MovieItem]()
     @Published var query: String = ""
     private var bag = Set<AnyCancellable>()
@@ -31,7 +31,7 @@ final class MoviesListViewModel: ObservableObject {
             }
             .store(in: &bag)
     }
-    
+
     func fetchData() async {
         do {
             let result = try await moviesRepo.getMovies(title: "batman", page: 1)
@@ -40,6 +40,5 @@ final class MoviesListViewModel: ObservableObject {
             print("\(TAG).fetchData() error: ", error)
         }
     }
-    
-    
+
 }
