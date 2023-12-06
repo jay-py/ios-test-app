@@ -14,6 +14,8 @@
 		2608AA152B1F6AEF00E1E055 /* exerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2608AA142B1F6AEF00E1E055 /* exerciseTests.swift */; };
 		2608AA1F2B1F6AEF00E1E055 /* exerciseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2608AA1E2B1F6AEF00E1E055 /* exerciseUITests.swift */; };
 		2608AA212B1F6AEF00E1E055 /* exerciseUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2608AA202B1F6AEF00E1E055 /* exerciseUITestsLaunchTests.swift */; };
+		26557C822B1FF30D0093C87D /* Design in Frameworks */ = {isa = PBXBuildFile; productRef = 26557C812B1FF30D0093C87D /* Design */; };
+		26557C842B1FF3110093C87D /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 26557C832B1FF3110093C87D /* Domain */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		2608AA1A2B1F6AEF00E1E055 /* exerciseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = exerciseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2608AA1E2B1F6AEF00E1E055 /* exerciseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exerciseUITests.swift; sourceTree = "<group>"; };
 		2608AA202B1F6AEF00E1E055 /* exerciseUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exerciseUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2608AA312B1F6F5200E1E055 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
+		2608AA322B1F6F8600E1E055 /* Design */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Design; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26557C842B1FF3110093C87D /* Domain in Frameworks */,
+				26557C822B1FF30D0093C87D /* Design in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,10 +80,13 @@
 		2608A9F72B1F6AED00E1E055 = {
 			isa = PBXGroup;
 			children = (
+				2608AA322B1F6F8600E1E055 /* Design */,
+				2608AA312B1F6F5200E1E055 /* Domain */,
 				2608AA022B1F6AED00E1E055 /* exercise */,
 				2608AA132B1F6AEF00E1E055 /* exerciseTests */,
 				2608AA1D2B1F6AEF00E1E055 /* exerciseUITests */,
 				2608AA012B1F6AED00E1E055 /* Products */,
+				26557C802B1FF30D0093C87D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +136,13 @@
 			path = exerciseUITests;
 			sourceTree = "<group>";
 		};
+		26557C802B1FF30D0093C87D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +159,10 @@
 			dependencies = (
 			);
 			name = exercise;
+			packageProductDependencies = (
+				26557C812B1FF30D0093C87D /* Design */,
+				26557C832B1FF3110093C87D /* Domain */,
+			);
 			productName = exercise;
 			productReference = 2608AA002B1F6AED00E1E055 /* exercise.app */;
 			productType = "com.apple.product-type.application";
@@ -427,7 +447,7 @@
 				DISPLAY_NAME = Debug;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Debug;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(DISPLAY_NAME)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -463,7 +483,7 @@
 				DISPLAY_NAME = Prod;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Debug;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(DISPLAY_NAME)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -631,7 +651,7 @@
 				DISPLAY_NAME = Beta;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Debug;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(DISPLAY_NAME)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -736,6 +756,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		26557C812B1FF30D0093C87D /* Design */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Design;
+		};
+		26557C832B1FF3110093C87D /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2608A9F82B1F6AED00E1E055 /* Project object */;
 }
