@@ -1,0 +1,36 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "navigation_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Movies"
+          }
+        }
+      }
+    },
+    "search_placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search Movies"
+          }
+        }
+      }
+    },
+    "splash_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Movies"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

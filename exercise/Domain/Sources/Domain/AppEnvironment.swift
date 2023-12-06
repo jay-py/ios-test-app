@@ -34,7 +34,7 @@ struct AppEnvironment {
 // MARK: - print() override
 public func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
     let output = items.map { "\($0)" }.joined(separator: separator)
-    if AppEnvironment.current == .debug {
+    if AppEnvironment.current == .debug || AppEnvironment.current == .beta {
         Swift.print(output, terminator: terminator)
     } else {
         // Log!

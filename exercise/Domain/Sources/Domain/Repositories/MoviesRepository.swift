@@ -7,12 +7,12 @@
 
 import Foundation
 
-public actor MoviesReporistory {
+public actor MoviesRepository {
 
     private let cache = Cache<String, Movie>()
     private let mockData: Bool
     
-    init(mockData: Bool = false) {
+    public init(mockData: Bool = false) {
         self.mockData = mockData
     }
 
@@ -23,6 +23,7 @@ public actor MoviesReporistory {
         let path = APIEndpoints.search(title, page)
         let key = path.value
         if let cached = cache[key] {
+            print(">> cached")
             return cached
         }
         let result = try await NetworkAgent.fetchData(

@@ -14,9 +14,9 @@ enum APIEndpoints {
     var value: String {
         switch self {
             case .search(let title, let page):
-                return "http://www.omdbapi.com/?apikey=2ff91575&s=\(title)&type=movie&page=\(page)"
+                return "https://www.omdbapi.com/?apikey=2ff91575&s=\(title)&type=movie&page=\(page)"
             case .details(let movieID):
-                return "http://www.omdbapi.com/?apikey=2ff91575&i=\(movieID)&plot=short"
+                return "https://www.omdbapi.com/?apikey=2ff91575&i=\(movieID)&plot=short"
         }
     }
 }

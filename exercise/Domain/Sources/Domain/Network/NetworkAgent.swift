@@ -46,7 +46,10 @@ extension NetworkAgent {
         mockData: Bool
     ) async throws -> T {
         #if DEBUG
-        return try! JSONDecoder().decode(responseType, from: T.mockData)
+        if mockData {
+            print(">> debug")
+            return try! JSONDecoder().decode(responseType, from: T.mockData)
+        }
         #endif
         guard let url = getURL(path: path.value, parameters: query)
         else { throw NetworkError.urlError }
@@ -63,6 +66,7 @@ extension NetworkAgent {
         }
         guard let responseObject = try? JSONDecoder().decode(responseType, from: data)
         else { throw NetworkError.parseError }
+        print(">> fresh")
         return responseObject
     }
 }

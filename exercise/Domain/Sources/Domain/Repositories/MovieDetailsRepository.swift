@@ -12,7 +12,7 @@ public actor MovieDetailsRepository {
     private let cache = Cache<String, MovieDetails>()
     private let mockData: Bool
     
-    init(mockData: Bool = false) {
+    public init(mockData: Bool = false) {
         self.mockData = mockData
     }
 
