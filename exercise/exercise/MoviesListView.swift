@@ -51,55 +51,20 @@ struct MoviesListView: View {
     var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack {
-                ForEach(vm.filteredMovies ?? vm.movies) {
-                    cell($0)
-                        .padding(.horizontal, 20)
-                    Color.gray.opacity(0.5)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 1)
-                        .padding(.horizontal, 30)
+                ForEach(vm.filteredMovies ?? vm.movies) { movie in
+                    NavigationLink {
+                        DetailsView(text: movie.displayTitle)
+                    } label: {
+                        CellView(text: movie.displayTitle, imageUrl: movie.imageURL)
+                    }
+                    Divider()
                 }
             }
+            .padding(.horizontal, 20)
         }
         .task {
             await vm.fetchData()
         }
-    }
-
-    @ViewBuilder
-    func cell(_ item: Movie) -> some View {
-
-        Button {
-            print(item)
-        } label: {
-            HStack(spacing: 10) {
-                AsyncImage(url: item.imageURL) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(height: 100)
-                .background(Color.gray)
-                .clipShape(RoundedRectangle(cornerRadius: 5))
-                Spacer()
-                Text(item.displayTitle)
-                    .fontWeight(.medium)
-                    .foregroundStyle(Color.fontColor(isLightMode))
-                Spacer()
-
-            }
-            .padding(8)
-            .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(cornerRadius: 15)
-                    .strokeBorder(lineWidth: 3)
-                    .foregroundColor(.themeColor)
-            )
-            .padding(.vertical, 8)
-        }
-
     }
 }
 
