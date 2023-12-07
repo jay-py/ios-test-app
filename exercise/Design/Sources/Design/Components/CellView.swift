@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  CellView.swift
 //
 //
 //  Created by Jean paul on 2023-12-07.
@@ -9,15 +9,15 @@ import SwiftUI
 
 public struct CellView: View {
     @Environment(\.colorScheme) private var colorScheme
-    
+
     private let text: String
     private let imageUrl: URL?
-    
+
     public init(text: String, imageUrl: URL?) {
         self.text = text
         self.imageUrl = imageUrl
     }
-    
+
     public var body: some View {
         HStack(spacing: 10) {
             AsyncImage(url: imageUrl) { image in
@@ -35,7 +35,7 @@ public struct CellView: View {
                 .fontWeight(.medium)
                 .foregroundStyle(Color.fontColor(colorScheme == .light))
             Spacer()
-            
+
         }
         .padding(8)
         .frame(maxWidth: .infinity)
@@ -45,7 +45,6 @@ public struct CellView: View {
                 .foregroundColor(.themeColor)
         )
         .padding(.vertical, 8)
-        
-        
+
     }
 }

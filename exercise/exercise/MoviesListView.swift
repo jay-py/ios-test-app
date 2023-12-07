@@ -10,9 +10,9 @@ import Domain
 import SwiftUI
 
 struct MoviesListView: View {
-    @AppStorage("isLightMode") private var isLightMode: Bool = true
+    @AppStorage("isLightMode") private var isLightMode: Bool = false
     @StateObject private var vm: MoviesListViewModel
-    
+
     init(_ moviesRepo: MoviesRepository) {
         self._vm = StateObject(
             wrappedValue:
@@ -22,7 +22,6 @@ struct MoviesListView: View {
     var body: some View {
         NavigationStack {
             content
-                .listBackgroundColor()
                 .searchable(
                     text: $vm.query,
                     placement: .navigationBarDrawer(displayMode: .automatic),
@@ -44,8 +43,10 @@ struct MoviesListView: View {
                 }
                 .navigationTitle("navigation_title")
         }
+        .tint(Color.themeColor)
+        .preferredColorScheme(isLightMode ? .light : .dark)
         .environment(\.colorScheme, isLightMode ? .light : .dark)
-        .cutomNavigationBar(isLightModeOn: isLightMode)
+        .searchBarTint()
     }
 
     var content: some View {
@@ -53,7 +54,9 @@ struct MoviesListView: View {
             LazyVStack {
                 ForEach(vm.filteredMovies ?? vm.movies) { movie in
                     NavigationLink {
-                        DetailsView(text: movie.displayTitle)
+                        DetailsView(
+                            title: movie.title, imageUrl: movie.imageURL, genre: movie.genre,
+                            released: movie.released, plot: movie.plot)
                     } label: {
                         CellView(text: movie.displayTitle, imageUrl: movie.imageURL)
                     }

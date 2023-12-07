@@ -51,6 +51,7 @@ final class DataController {
         cacheMovie.released = movie.released
         cacheMovie.poster = movie.poster
         cacheMovie.plot = movie.plot
+        cacheMovie.genre = movie.genre
         save(context: context)
     }
 
