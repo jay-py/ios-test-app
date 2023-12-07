@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BackgroundColorModifier: ViewModifier {
+struct SplashBackgroundColor: ViewModifier {
     func body(content: Content) -> some View {
         content
             .background(
@@ -21,7 +21,7 @@ struct BackgroundColorModifier: ViewModifier {
 }
 
 extension View {
-    public func backgroundColor() -> some View {
-        modifier(BackgroundColorModifier())
+    public func splashBackgroundColor() -> some View {
+        modifier(SplashBackgroundColor())
     }
 }

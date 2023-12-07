@@ -30,7 +30,7 @@ struct SplashView: View {
                 .animation(.easeInOut(duration: 1), value: vm.isLoading)
             Spacer()
         }
-        .backgroundColor()
+        .splashBackgroundColor()
         .onChange(of: vm.isLoading) { newValue in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 RootViewModel.shared.setRootView(screen: .home)

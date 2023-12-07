@@ -10,10 +10,9 @@ import Domain
 import SwiftUI
 
 struct MoviesListView: View {
-
+    @AppStorage("isLightMode") private var isLightMode: Bool = true
     @StateObject private var vm: MoviesListViewModel
-    @Environment(\.colorScheme) var colorScheme
-
+    
     init(_ moviesRepo: MoviesRepository) {
         self._vm = StateObject(
             wrappedValue:
@@ -23,13 +22,30 @@ struct MoviesListView: View {
     var body: some View {
         NavigationStack {
             content
+                .listBackgroundColor()
                 .searchable(
                     text: $vm.query,
                     placement: .navigationBarDrawer(displayMode: .automatic),
                     prompt: "search_placeholder"
                 )
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            withAnimation {
+                                isLightMode.toggle()
+                            }
+                        } label: {
+                            Image(systemName: isLightMode ? "moon.fill" : "sun.max.fill")
+                                .foregroundStyle(Color.themeColor)
+                                .rotationEffect(.degrees(isLightMode ? 0 : 180))
+                        }
+
+                    }
+                }
                 .navigationTitle("navigation_title")
         }
+        .environment(\.colorScheme, isLightMode ? .light : .dark)
+        .cutomNavigationBar(isLightModeOn: isLightMode)
     }
 
     var content: some View {
@@ -70,7 +86,7 @@ struct MoviesListView: View {
                 Spacer()
                 Text(item.displayTitle)
                     .fontWeight(.medium)
-                    .foregroundStyle(colorScheme == .dark ? Color.white : .black)
+                    .foregroundStyle(Color.fontColor(isLightMode))
                 Spacer()
 
             }
