@@ -10,7 +10,8 @@ import Domain
 final class DataController {
 
     public static let shared = DataController()
-    public let container: NSPersistentContainer
+    private let container: NSPersistentContainer
+    private let expirationTime: TimeInterval = 12 * 60 * 60 // 12 hours
     public var movies: [Movie] {
         get { return self.getMovies() ?? [] }
         set { self.cacheMovies(newValue) }
@@ -38,19 +39,19 @@ final class DataController {
 
     fileprivate func cacheMovies(_ movies: [Movie]) {
         movies.forEach(cacheMovie)
+        print("success saving!")
     }
 
     fileprivate func cacheMovie(_ movie: Movie) {
         let context = self.container.viewContext
         let cacheMovie = CachedMovie(context: context)
         cacheMovie.id = UUID()
-        cacheMovie.expirationDate = Date().addingTimeInterval(12 * 60 * 60)  // 12 hours from now
+        cacheMovie.expirationDate = Date().addingTimeInterval(expirationTime)
         cacheMovie.title = movie.title
         cacheMovie.released = movie.released
         cacheMovie.poster = movie.poster
         cacheMovie.plot = movie.plot
         save(context: context)
-        print("success saving!")
     }
 
     fileprivate func getMovies() -> [Movie]? {
@@ -58,7 +59,13 @@ final class DataController {
         let request: NSFetchRequest<CachedMovie> = CachedMovie.fetchRequest()
         guard let cachedMovies = try? context.fetch(request)
         else { return nil }
+        // remove expired
         let expiredCache = cachedMovies.filter { $0.expirationDate <= Date() }
+        expiredCache.forEach { item in
+            print(">> removing expired")
+            context.delete(item)
+        }
+        save(context: context)
         let validMovies = cachedMovies.filter { $0.expirationDate > Date() }
         let movies = validMovies.compactMap {
             Movie(

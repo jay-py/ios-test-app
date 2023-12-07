@@ -33,7 +33,7 @@ struct MoviesListView: View {
     }
 
     var content: some View {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false) {
             LazyVStack {
                 ForEach(vm.movies) {
                     cell($0)
@@ -44,10 +44,7 @@ struct MoviesListView: View {
                         .padding(.horizontal, 30)
                 }
             }
-
         }
-        .listStyle(DefaultListStyle())
-        .listRowInsets(EdgeInsets.init(top: 0, leading: 10, bottom: 0, trailing: 10))
         .task {
             await vm.fetchData()
         }
