@@ -35,7 +35,7 @@ struct MoviesListView: View {
     var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack {
-                ForEach(vm.movies) {
+                ForEach(vm.filteredMovies ?? vm.movies) {
                     cell($0)
                         .padding(.horizontal, 20)
                     Color.gray.opacity(0.5)

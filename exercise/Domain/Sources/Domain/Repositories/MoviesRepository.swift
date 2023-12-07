@@ -27,6 +27,7 @@ public actor MoviesRepository {
                 continue
             }
         }
+        print(">> fresh data")
         return res
     }
 

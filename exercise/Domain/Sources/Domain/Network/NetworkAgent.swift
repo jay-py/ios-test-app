@@ -65,7 +65,6 @@ extension NetworkAgent {
         }
         guard let responseObject = try? JSONDecoder().decode(responseType, from: data)
         else { throw NetworkError.parseError }
-        print(">> fresh")
         return responseObject
     }
 }

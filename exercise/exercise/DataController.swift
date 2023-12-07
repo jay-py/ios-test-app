@@ -11,7 +11,7 @@ final class DataController {
 
     public static let shared = DataController()
     private let container: NSPersistentContainer
-    private let expirationTime: TimeInterval = 12 * 60 * 60 // 12 hours
+    private let expirationTime: TimeInterval = 12 * 60 * 60  // 12 hours
     public var movies: [Movie] {
         get { return self.getMovies() ?? [] }
         set { self.cacheMovies(newValue) }
@@ -39,7 +39,7 @@ final class DataController {
 
     fileprivate func cacheMovies(_ movies: [Movie]) {
         movies.forEach(cacheMovie)
-        print("success saving!")
+        print(">> Success saving: ", movies.count)
     }
 
     fileprivate func cacheMovie(_ movie: Movie) {
@@ -60,13 +60,18 @@ final class DataController {
         guard let cachedMovies = try? context.fetch(request)
         else { return nil }
         // remove expired
-        let expiredCache = cachedMovies.filter { $0.expirationDate <= Date() }
-        expiredCache.forEach { item in
-            print(">> removing expired")
-            context.delete(item)
-        }
-        save(context: context)
         let validMovies = cachedMovies.filter { $0.expirationDate > Date() }
+        let expiredCache = cachedMovies.filter { $0.expirationDate < Date() }
+        defer {
+            if !expiredCache.isEmpty {
+                expiredCache.forEach { item in
+                    context.delete(item)
+                }
+                print(">> Removing expired: ", expiredCache.count)
+                save(context: context)
+            }
+        }
+        if validMovies.isEmpty { return nil }
         let movies = validMovies.compactMap {
             Movie(
                 title: $0.title,
@@ -75,7 +80,7 @@ final class DataController {
                 plot: $0.plot,
                 genre: $0.genre)
         }
-        print("sucess getting")
+        print("Sucess getting: ", movies.count)
         return movies
     }
 }

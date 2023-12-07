@@ -14,6 +14,8 @@ final class MoviesListViewModel: ObservableObject {
     private let moviesRepo: MoviesRepository
 
     @Published private(set) var movies = [Movie]()
+    @Published private(set) var filteredMovies: [Movie]?
+
     @Published var query: String = ""
     private var bag = Set<AnyCancellable>()
 
@@ -22,10 +24,13 @@ final class MoviesListViewModel: ObservableObject {
         $query
             .receive(on: DispatchQueue.main)
             .removeDuplicates()
+            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .sink { newValue in
                 let letters = newValue.filter({ !$0.isWhitespace })
                 if letters.count > 0 {
-                    //self.updateResult(newValue)
+                    self.filterMovies(query: newValue)
+                } else {
+                    self.filteredMovies = nil
                 }
             }
             .store(in: &bag)
@@ -44,5 +49,16 @@ final class MoviesListViewModel: ObservableObject {
         } catch {
             print("\(TAG).fetchData() error: ", error)
         }
+    }
+
+    private func filterMovies(query: String) {
+        let matches = movies.filter {
+            $0.title.lowercased().contains(query.lowercased())
+                || $0.released.lowercased().contains(query.lowercased())
+        }
+        self.filteredMovies =
+            matches.isEmpty
+            ? nil
+            : matches
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct exerciseApp: App {
-    
+
     var body: some Scene {
         WindowGroup {
             RootView()
