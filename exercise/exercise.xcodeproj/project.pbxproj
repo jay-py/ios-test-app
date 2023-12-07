@@ -23,6 +23,9 @@
 		26557C922B2014350093C87D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 26557C912B2014350093C87D /* Localizable.xcstrings */; };
 		26557C942B20169D0093C87D /* MoviesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26557C932B20169D0093C87D /* MoviesListView.swift */; };
 		26557C962B2018B10093C87D /* MoviesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26557C952B2018B10093C87D /* MoviesListViewModel.swift */; };
+		26BAFD6F2B21252A004DCEEE /* CachedDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26BAFD6D2B21252A004DCEEE /* CachedDataModel.xcdatamodeld */; };
+		26BAFD722B212543004DCEEE /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BAFD702B212543004DCEEE /* DataController.swift */; };
+		26BAFD732B212543004DCEEE /* MovieEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BAFD712B212543004DCEEE /* MovieEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +65,9 @@
 		26557C912B2014350093C87D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		26557C932B20169D0093C87D /* MoviesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListView.swift; sourceTree = "<group>"; };
 		26557C952B2018B10093C87D /* MoviesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListViewModel.swift; sourceTree = "<group>"; };
+		26BAFD6E2B21252A004DCEEE /* CachedDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CachedDataModel.xcdatamodel; sourceTree = "<group>"; };
+		26BAFD702B212543004DCEEE /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		26BAFD712B212543004DCEEE /* MovieEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,7 @@
 		2608AA022B1F6AED00E1E055 /* exercise */ = {
 			isa = PBXGroup;
 			children = (
+				26BAFD742B2125EF004DCEEE /* CoreData */,
 				26557C872B2011520093C87D /* Assets */,
 				26557C882B2011720093C87D /* Main */,
 				26557C892B20118D0093C87D /* Views */,
@@ -194,6 +201,16 @@
 				26557C952B2018B10093C87D /* MoviesListViewModel.swift */,
 			);
 			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		26BAFD742B2125EF004DCEEE /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				26BAFD6D2B21252A004DCEEE /* CachedDataModel.xcdatamodeld */,
+				26BAFD712B212543004DCEEE /* MovieEntity.swift */,
+				26BAFD702B212543004DCEEE /* DataController.swift */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,11 +371,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26BAFD6F2B21252A004DCEEE /* CachedDataModel.xcdatamodeld in Sources */,
 				2608AA062B1F6AED00E1E055 /* RootView.swift in Sources */,
 				26557C942B20169D0093C87D /* MoviesListView.swift in Sources */,
 				26557C862B2010A60093C87D /* Environment.swift in Sources */,
 				26557C8E2B20122A0093C87D /* SplashView.swift in Sources */,
+				26BAFD722B212543004DCEEE /* DataController.swift in Sources */,
 				26557C902B2012460093C87D /* SplashViewModel.swift in Sources */,
+				26BAFD732B212543004DCEEE /* MovieEntity.swift in Sources */,
 				26557C8C2B2011D60093C87D /* RootViewModel.swift in Sources */,
 				2608AA042B1F6AED00E1E055 /* exerciseApp.swift in Sources */,
 				26557C962B2018B10093C87D /* MoviesListViewModel.swift in Sources */,
@@ -850,6 +870,19 @@
 			productName = Domain;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		26BAFD6D2B21252A004DCEEE /* CachedDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				26BAFD6E2B21252A004DCEEE /* CachedDataModel.xcdatamodel */,
+			);
+			currentVersion = 26BAFD6E2B21252A004DCEEE /* CachedDataModel.xcdatamodel */;
+			path = CachedDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2608A9F82B1F6AED00E1E055 /* Project object */;
 }

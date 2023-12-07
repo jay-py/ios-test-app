@@ -20,8 +20,13 @@ final class SplashViewModel: ObservableObject {
 
     func fetchData() async {
         do {
-            let _ = try await moviesRepo.getMovies(title: "batman", page: 1)  // load 9 movies into cache
-            let _ = try await moviesRepo.getMovies(title: "batman", page: 2)
+            let stored = DataController.shared.movies
+            if !stored.isEmpty {
+                self.isLoading = false
+                return
+            }
+            let res = try await moviesRepo.getMovies(title: "batman")
+            DataController.shared.movies = res
             self.isLoading = false
         } catch {
             print("\(TAG).fetchData() error: ", error)

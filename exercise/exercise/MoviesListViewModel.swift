@@ -4,7 +4,6 @@
 //
 //  Created by Jean paul on 2023-12-06.
 //
-
 import Combine
 import Domain
 import SwiftUI
@@ -14,7 +13,7 @@ final class MoviesListViewModel: ObservableObject {
     private let TAG = "MoviesListViewModel"
     private let moviesRepo: MoviesRepository
 
-    @Published private(set) var movies = [Movie.MovieItem]()
+    @Published private(set) var movies = [Movie]()
     @Published var query: String = ""
     private var bag = Set<AnyCancellable>()
 
@@ -34,11 +33,16 @@ final class MoviesListViewModel: ObservableObject {
 
     func fetchData() async {
         do {
-            let result = try await moviesRepo.getMovies(title: "batman", page: 1)
-            self.movies.append(contentsOf: result.items)
+            let stored = DataController.shared.movies
+            if !stored.isEmpty {
+                self.movies = stored
+                return
+            }
+            let result = try await moviesRepo.getMovies(title: "batman")
+            DataController.shared.movies = result
+            self.movies = result
         } catch {
             print("\(TAG).fetchData() error: ", error)
         }
     }
-
 }

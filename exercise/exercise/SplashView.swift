@@ -39,10 +39,9 @@ struct SplashView: View {
         .task {
             await vm.fetchData()
         }
-
     }
 }
 
 #Preview {
-    return SplashView(MoviesRepository(mockData: true))
+    return SplashView(MoviesRepository())
 }

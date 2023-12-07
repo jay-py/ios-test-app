@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct exerciseApp: App {
+    private var dataController = DataController.shared
+    // @Environment(\.scenePhase) private var scenePhase
+
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }

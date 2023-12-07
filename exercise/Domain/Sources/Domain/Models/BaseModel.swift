@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol BaseModel: Codable, Identifiable {
+protocol BaseModel: Codable, Identifiable, Equatable {
     #if DEBUG
         static var mockData: Data! { get }
     #endif

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23B92" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CachedMovie" representedClassName=".CachedMovie" syncable="YES">
+        <attribute name="expirationDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="genre" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="plot" optional="YES" attributeType="String"/>
+        <attribute name="poster" attributeType="String"/>
+        <attribute name="released" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+</model>

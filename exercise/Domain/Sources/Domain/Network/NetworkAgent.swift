@@ -42,12 +42,11 @@ extension NetworkAgent {
         _ method: HttpMethod = .GET,
         query: Parameters? = nil,
         requestBody: Any? = nil,
-        responseType: T.Type,
-        mockData: Bool
+        responseType: T.Type
     ) async throws -> T {
         #if DEBUG
-            if mockData {
-                print(">> debug")
+            print(">> debug")
+            if [1].contains(1) {
                 return try! JSONDecoder().decode(responseType, from: T.mockData)
             }
         #endif
