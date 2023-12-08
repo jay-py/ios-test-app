@@ -31,11 +31,6 @@ struct SplashView: View {
             Spacer()
         }
         .splashBackgroundColor()
-        .onChange(of: vm.isLoading) { newValue in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                RootViewModel.shared.setRootView(screen: .home)
-            }
-        }
         .task {
             await vm.fetchData()
         }

@@ -43,7 +43,7 @@ final class MoviesListViewModel: ObservableObject {
                 self.movies = stored
                 return
             }
-            let result = try await moviesRepo.getMovies(title: "batman")
+            let result = try await moviesRepo.getMovies()
             DataController.shared.movies = result
             self.movies = result
         } catch {

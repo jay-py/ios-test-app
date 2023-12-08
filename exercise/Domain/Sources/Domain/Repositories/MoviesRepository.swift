@@ -13,7 +13,7 @@ public actor MoviesRepository {
     //URLCache.shared.memoryCapacity = 10_000_000 // ~10 MB memory space
     //URLCache.shared.diskCapacity = 1_000_000_000 // ~1GB disk cache space
 
-    public func getMovies(title: String, page: Int = 1) async throws -> [Movie] {
+    public func getMovies(title: String = "batman", page: Int = 1) async throws -> [Movie] {
         let collection = try await NetworkAgent.fetchData(
             path: .search(title, page),
             responseType: MovieCollection.self

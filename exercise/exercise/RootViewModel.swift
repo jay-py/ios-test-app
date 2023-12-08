@@ -12,15 +12,13 @@ final class RootViewModel: ObservableObject {
 
     static let shared = RootViewModel()
     private init() {}
-    @Published private(set) var rootView: Screen = .splash
+    @Published private(set) var state = AppState.loading
 
-    func setRootView(screen: Screen) {
-        self.rootView = screen
+    func setAppState(for state: AppState) {
+        self.state = state
     }
-}
 
-extension RootViewModel {
-    enum Screen {
-        case splash, home
+    enum AppState {
+        case success, error, loading
     }
 }

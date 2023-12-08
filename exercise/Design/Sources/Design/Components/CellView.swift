@@ -45,8 +45,7 @@ public struct CellView: View {
                 .foregroundColor(.themeColor)
                 .clipShape(RoundedRectangle(cornerRadius: 15))
                 .shadow(
-                    color: (colorScheme == .dark ? Color.white : Color.gray).opacity(0.6),
-                    radius: 3, x: 3, y: 3)
+                    color: Color.gray.opacity(0.6), radius: 3, x: 3, y: 3)
         )
     }
 }

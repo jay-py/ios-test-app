@@ -22,6 +22,16 @@
         }
       }
     },
+    "no_data_message" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No data found! :("
+          }
+        }
+      }
+    },
     "search_placeholder" : {
       "localizations" : {
         "en" : {

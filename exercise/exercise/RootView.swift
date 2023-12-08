@@ -12,16 +12,18 @@ struct RootView: View {
     @StateObject private var vm = RootViewModel.shared
 
     var body: some View {
-        screen(for: vm.rootView)
+        screen(for: vm.state)
     }
 
     @ViewBuilder
-    private func screen(for screen: RootViewModel.Screen) -> some View {
-        switch screen {
-            case .splash:
+    private func screen(for state: RootViewModel.AppState) -> some View {
+        switch state {
+            case .loading:
                 SplashView(moviesRepository)
-            case .home:
+            case .success:
                 MoviesListView(moviesRepository)
+            case .error:
+                Text("no_data_message")
         }
     }
 }
