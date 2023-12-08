@@ -58,7 +58,7 @@ final class MoviesListViewModel: ObservableObject {
         }
         self.filteredMovies =
             matches.isEmpty
-            ? nil
+            ? []
             : matches
     }
 }

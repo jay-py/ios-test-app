@@ -50,8 +50,7 @@ struct MoviesListView: View {
     }
 
     var content: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack {
+            List {
                 ForEach(vm.filteredMovies ?? vm.movies) { movie in
                     NavigationLink {
                         DetailsView(
@@ -62,9 +61,9 @@ struct MoviesListView: View {
                     }
                     Divider()
                 }
+                .listRowSeparator(.hidden)
             }
-            .padding(.horizontal, 20)
-        }
+            .listStyle(.plain)
         .task {
             await vm.fetchData()
         }
