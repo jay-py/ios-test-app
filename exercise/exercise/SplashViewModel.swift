@@ -12,19 +12,17 @@ import SwiftUI
 final class SplashViewModel: ObservableObject {
     private let TAG = "SplashViewModel"
     private let moviesRepo: MoviesRepository
-    @Published private(set) var isLoading: Bool = true
-    @Published private var state: State = .idle
     private var bag = Set<AnyCancellable>()
+
+    @Published private(set) var isLoading: Bool = true
+    private var state: State = .idle {
+        willSet {
+            self.handleState(newValue == .error)
+        }
+    }
 
     init(_ moviesRepo: MoviesRepository) {
         self.moviesRepo = moviesRepo
-        $state
-            .receive(on: DispatchQueue.main)
-            .removeDuplicates()
-            .sink { newValue in
-                self.handleState(newValue == .error)
-            }
-            .store(in: &bag)
     }
 
     @MainActor
