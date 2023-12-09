@@ -15,44 +15,54 @@ final class MoviesListViewModel: ObservableObject {
     private var bag = Set<AnyCancellable>()
 
     @Published private(set) var movies = [Movie]()
-    @Published private(set) var filteredMovies: [Movie]?
     @Published var query: String = ""
+    private var storedMovies = [Movie]()
 
     init(_ moviesRepo: MoviesRepository) {
         self.moviesRepo = moviesRepo
         $query
             .receive(on: DispatchQueue.main)
             .removeDuplicates()
-            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
             .sink { newValue in
-                let letters = newValue.filter({ !$0.isWhitespace })
-                if letters.count > 0 {
-                    self.filterMovies(query: newValue)
-                } else {
-                    self.filteredMovies = nil
-                }
+                self.filterMovies(query: newValue)
             }
             .store(in: &bag)
     }
 
     @MainActor
     func fetchData() async {
-        if self.movies.isEmpty,
+        if self.storedMovies.isEmpty,
             let stored = await DataController.shared.getMovies()
         {
-            self.movies = stored
+            self.storedMovies = stored
+            self.setMovies(default: true)
         }
     }
 
     @MainActor
     private func filterMovies(query: String) {
-        let matches = movies.filter {
-            $0.title.lowercased().contains(query.lowercased())
-                || $0.released.lowercased().contains(query.lowercased())
+        if query.isEmpty {
+            self.setMovies(default: true)
+        } else {
+            let matches = storedMovies.filter {
+                $0.title.lowercased().contains(query.lowercased())
+                    || $0.released.lowercased().contains(query.lowercased())
+            }
+            print(">> Matches found: ", matches.count)
+            self.setMovies(matches)
         }
-        self.filteredMovies =
-            matches.isEmpty
-            ? []
-            : matches
+    }
+
+    private func setMovies(_ movies: [Movie]? = nil, default: Bool = false) {
+        withAnimation {
+            if `default` {
+                if self.movies != self.storedMovies {
+                    self.movies = self.storedMovies
+                }
+            } else {
+                self.movies = movies ?? []
+            }
+        }
     }
 }

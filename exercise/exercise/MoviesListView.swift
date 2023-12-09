@@ -53,18 +53,16 @@ struct MoviesListView: View {
     }
 
     var content: some View {
-        List {
-            ForEach(vm.filteredMovies ?? vm.movies) { movie in
-                NavigationLink {
-                    DetailsView(
-                        title: movie.title, image: movie.image, genre: movie.genre,
-                        released: movie.released, plot: movie.plot)
-                } label: {
-                    CellView(text: movie.displayTitle, image: movie.image)
-                }
-                Divider()
+        List(vm.movies) { movie in
+            NavigationLink {
+                DetailsView(
+                    title: movie.title, image: movie.image, genre: movie.genre,
+                    released: movie.released, plot: movie.plot)
+            } label: {
+                CellView(text: movie.displayTitle, image: movie.image)
             }
             .listRowSeparator(.hidden)
+            Divider()
         }
         .listStyle(.plain)
     }
