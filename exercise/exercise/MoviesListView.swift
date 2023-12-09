@@ -22,6 +22,9 @@ struct MoviesListView: View {
     var body: some View {
         NavigationStack {
             content
+                .task(priority: .high) {
+                    await vm.fetchData()
+                }
                 .searchable(
                     text: $vm.query,
                     placement: .navigationBarDrawer(displayMode: .automatic),
@@ -50,23 +53,20 @@ struct MoviesListView: View {
     }
 
     var content: some View {
-            List {
-                ForEach(vm.filteredMovies ?? vm.movies) { movie in
-                    NavigationLink {
-                        DetailsView(
-                            title: movie.title, imageUrl: movie.imageURL, genre: movie.genre,
-                            released: movie.released, plot: movie.plot)
-                    } label: {
-                        CellView(text: movie.displayTitle, imageUrl: movie.imageURL)
-                    }
-                    Divider()
+        List {
+            ForEach(vm.filteredMovies ?? vm.movies) { movie in
+                NavigationLink {
+                    DetailsView(
+                        title: movie.title, image: movie.image, genre: movie.genre,
+                        released: movie.released, plot: movie.plot)
+                } label: {
+                    CellView(text: movie.displayTitle, image: movie.image)
                 }
-                .listRowSeparator(.hidden)
+                Divider()
             }
-            .listStyle(.plain)
-        .task {
-            await vm.fetchData()
+            .listRowSeparator(.hidden)
         }
+        .listStyle(.plain)
     }
 }
 

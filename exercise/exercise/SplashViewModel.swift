@@ -27,16 +27,18 @@ final class SplashViewModel: ObservableObject {
             .store(in: &bag)
     }
 
+    @MainActor
     func fetchData() async {
         do {
-            let stored = DataController.shared.movies
-            if !stored.isEmpty {
+            if let stored = await DataController.shared.getMovies(),
+                !stored.isEmpty
+            {
                 self.isLoading = false
                 self.state = .success
                 return
             }
             let res = try await moviesRepo.getMovies()
-            DataController.shared.movies = res
+            await DataController.shared.cacheMovies(res)
             self.isLoading = false
             self.state = .success
         } catch {

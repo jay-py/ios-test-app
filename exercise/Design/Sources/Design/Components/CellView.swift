@@ -11,29 +11,25 @@ public struct CellView: View {
     @Environment(\.colorScheme) private var colorScheme
 
     private let text: String
-    private let imageUrl: URL?
+    private let image: UIImage
 
-    public init(text: String, imageUrl: URL?) {
+    public init(text: String, image: UIImage) {
         self.text = text
-        self.imageUrl = imageUrl
+        self.image = image
     }
 
     public var body: some View {
         HStack(spacing: 10) {
-            AsyncImage(url: imageUrl) { image in
-                image
-                    .resizable()
-                    .scaledToFit()
-            } placeholder: {
-                ProgressView()
-            }
-            .frame(height: 100)
-            .background(Color.gray)
-            .clipShape(RoundedRectangle(cornerRadius: 5))
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 100)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
             Spacer()
             Text(text)
                 .fontWeight(.medium)
                 .foregroundStyle(Color.fontColor(colorScheme == .light))
+                .multilineTextAlignment(.center)
             Spacer()
 
         }
@@ -49,3 +45,9 @@ public struct CellView: View {
         )
     }
 }
+
+#if DEBUG
+    #Preview {
+        CellView(text: "The Batman Movie", image: UIImage.createImage())
+    }
+#endif

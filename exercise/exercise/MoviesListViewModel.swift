@@ -12,12 +12,11 @@ import SwiftUI
 final class MoviesListViewModel: ObservableObject {
     private let TAG = "MoviesListViewModel"
     private let moviesRepo: MoviesRepository
+    private var bag = Set<AnyCancellable>()
 
     @Published private(set) var movies = [Movie]()
     @Published private(set) var filteredMovies: [Movie]?
-
     @Published var query: String = ""
-    private var bag = Set<AnyCancellable>()
 
     init(_ moviesRepo: MoviesRepository) {
         self.moviesRepo = moviesRepo
@@ -36,21 +35,16 @@ final class MoviesListViewModel: ObservableObject {
             .store(in: &bag)
     }
 
+    @MainActor
     func fetchData() async {
-        do {
-            let stored = DataController.shared.movies
-            if !stored.isEmpty {
-                self.movies = stored
-                return
-            }
-            let result = try await moviesRepo.getMovies()
-            DataController.shared.movies = result
-            self.movies = result
-        } catch {
-            print("\(TAG).fetchData() error: ", error)
+        if self.movies.isEmpty,
+            let stored = await DataController.shared.getMovies()
+        {
+            self.movies = stored
         }
     }
 
+    @MainActor
     private func filterMovies(query: String) {
         let matches = movies.filter {
             $0.title.lowercased().contains(query.lowercased())

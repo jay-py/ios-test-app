@@ -6,7 +6,7 @@
 //
 // swift-format-ignore-file
 
-import Foundation
+import SwiftUI
 
 public struct Movie: BaseModel {
 
@@ -16,6 +16,7 @@ public struct Movie: BaseModel {
     public let poster: String
     public let plot: String
     public let genre: String
+    public var imageData: Data? = nil
 
     public init(title: String, released: String, poster: String, plot: String, genre: String) {
         self.title = title
@@ -26,10 +27,19 @@ public struct Movie: BaseModel {
     }
 
     public var displayTitle: String {
-        return "\(self.title) (\(self.released))"
+        return "\(self.title)\n(\(self.released))"
     }
+
     public var imageURL: URL? {
         return URL(string: self.poster)
+    }
+
+    public var image: UIImage {
+        if let imageData,
+           let image = UIImage(data: imageData) {
+            return image
+        }
+        return UIImage()
     }
 
     enum CodingKeys: String, CodingKey {

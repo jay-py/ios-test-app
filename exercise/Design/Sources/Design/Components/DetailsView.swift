@@ -12,15 +12,17 @@ public struct DetailsView: View {
     @Environment(\.colorScheme) private var colorScheme
     @State private var sheetActive = true
     @State private var cardHeight: CGFloat = 0
+    @GestureState private var dragOffset = CGSize.zero
+
     private let title: String
-    private let imageUrl: URL?
+    private let image: UIImage
     private let genre: String
     private let released: String
     private let plot: String
 
-    public init(title: String, imageUrl: URL?, genre: String, released: String, plot: String) {
+    public init(title: String, image: UIImage, genre: String, released: String, plot: String) {
         self.title = title
-        self.imageUrl = imageUrl
+        self.image = image
         self.genre = genre
         self.released = released
         self.plot = plot
@@ -33,14 +35,10 @@ public struct DetailsView: View {
 
     var content: some View {
         VStack(spacing: 0) {
-            AsyncImage(url: imageUrl) { image in
-                image
-                    .resizable()
-                    .scaledToFit()
-            } placeholder: {
-                ProgressView()
-            }
-            .frame(maxWidth: .infinity)
+            Image(uiImage: self.image)
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: .infinity)
             Spacer()
         }
         .ignoresSafeArea()
@@ -75,6 +73,15 @@ public struct DetailsView: View {
                 return Color.clear
             }
         )
+        .gesture(
+            DragGesture().updating(
+                $dragOffset,
+                body: { (value, state, transaction) in
+                    if value.startLocation.x < 20 && value.translation.width > 25 {
+                        sheetActive.toggle()
+                        dismiss()
+                    }
+                }))
     }
 
     var titleView: some View {
@@ -141,16 +148,15 @@ public struct DetailsView: View {
     }
 }
 
-#Preview {
-    DetailsView(
-        title: "The Batman",
-        imageUrl: URL(
-            string:
-                "https://m.media-amazon.com/images/M/MV5BM2MyNTAwZGEtNTAxNC00ODVjLTgzZjUtYmU0YjAzNmQyZDEwXkEyXkFqcGdeQXVyNDc2NTg3NzA@._V1_SX300.jpg"
-        ),
-        genre: "Action",
-        released: "04 Mar 2022",
-        plot:
-            "When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city\'s hidden corruption and question his family\'s involvement."
-    )
-}
+#if DEBUG
+    #Preview {
+        DetailsView(
+            title: "The Batman",
+            image: UIImage.createImage(),
+            genre: "Action",
+            released: "04 Mar 2022",
+            plot:
+                "When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city\'s hidden corruption and question his family\'s involvement."
+        )
+    }
+#endif

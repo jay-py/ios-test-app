@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 struct AppEnvironment {
 
@@ -37,6 +38,6 @@ public func print(_ items: Any..., separator: String = " ", terminator: String =
     if AppEnvironment.current == .debug || AppEnvironment.current == .beta {
         Swift.print(output, terminator: terminator)
     } else {
-        // Log!
+        Logger().info("\(output)")
     }
 }

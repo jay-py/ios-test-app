@@ -10,14 +10,13 @@ import Foundation
 public actor MoviesRepository {
 
     public init() {}
-    //URLCache.shared.memoryCapacity = 10_000_000 // ~10 MB memory space
-    //URLCache.shared.diskCapacity = 1_000_000_000 // ~1GB disk cache space
 
     public func getMovies(title: String = "batman", page: Int = 1) async throws -> [Movie] {
         let collection = try await NetworkAgent.fetchData(
             path: .search(title, page),
             responseType: MovieCollection.self
         )
+        print(">> Collected items: ", collection.moviesIDs.count)
         var res = [Movie]()
         for item in collection.moviesIDs {
             do {
@@ -27,7 +26,7 @@ public actor MoviesRepository {
                 continue
             }
         }
-        print(">> fresh data")
+        print(">> Fetched items: ", res.count)
         return res
     }
 

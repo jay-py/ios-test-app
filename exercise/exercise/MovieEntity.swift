@@ -12,7 +12,10 @@ import Foundation
 public class CachedMovie: NSManagedObject {}
 extension CachedMovie {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CachedMovie> {
-        return NSFetchRequest<CachedMovie>(entityName: "CachedMovie")
+        let request = NSFetchRequest<CachedMovie>(entityName: "CachedMovie")
+        let sortDescriptor = NSSortDescriptor(key: "released", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        return request
     }
     @NSManaged public var id: UUID
     @NSManaged public var expirationDate: Date
@@ -21,4 +24,5 @@ extension CachedMovie {
     @NSManaged public var genre: String
     @NSManaged public var released: String
     @NSManaged public var plot: String
+    @NSManaged public var imageData: Data
 }
