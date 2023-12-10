@@ -41,7 +41,7 @@ final class MoviesListViewModel: ObservableObject {
     }
 
     @MainActor
-    private func filterMovies(query: String) {
+    internal func filterMovies(query: String) {
         if query.isEmpty {
             self.setMovies(default: true)
         } else {

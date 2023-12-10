@@ -49,18 +49,6 @@ extension MovieCollection {
         },
         {
           "imdbID": "tt4853102",
-        },
-        {
-          "imdbID": "tt4853102",
-        },
-        {
-          "imdbID": "tt4853102",
-        },
-        {
-          "imdbID": "tt4853102",
-        },
-        {
-          "imdbID": "tt4853102",
         }
       ]
     }

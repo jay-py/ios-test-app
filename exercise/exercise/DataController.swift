@@ -24,7 +24,7 @@ final class DataController {
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
 
-    fileprivate func save(context: NSManagedObjectContext) async {
+    internal func save(context: NSManagedObjectContext) async {
         do {
             context.performAndWait {
                 try? context.save()
@@ -39,7 +39,7 @@ final class DataController {
         print(">> Saved items: ", movies.count)
     }
 
-    fileprivate func cacheMovie(_ movie: Movie) async {
+    internal func cacheMovie(_ movie: Movie) async {
         let context = self.container.viewContext
         let cacheMovie = CachedMovie(context: context)
         cacheMovie.id = UUID()

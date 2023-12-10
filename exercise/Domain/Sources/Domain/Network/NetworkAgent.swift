@@ -45,7 +45,6 @@ extension NetworkAgent {
         responseType: T.Type
     ) async throws -> T {
         #if DEBUG
-            print(">> debug")
             if [1].contains(1) {
                 return try! JSONDecoder().decode(responseType, from: T.mockData)
             }
