@@ -24,6 +24,7 @@
 		26BAFD6F2B21252A004DCEEE /* CachedDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26BAFD6D2B21252A004DCEEE /* CachedDataModel.xcdatamodeld */; };
 		26BAFD722B212543004DCEEE /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BAFD702B212543004DCEEE /* DataController.swift */; };
 		26BAFD732B212543004DCEEE /* MovieEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BAFD712B212543004DCEEE /* MovieEntity.swift */; };
+		26FE91FC2B268D93002E88A0 /* SplashViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FE91FB2B268D93002E88A0 /* SplashViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		26BAFD6E2B21252A004DCEEE /* CachedDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CachedDataModel.xcdatamodel; sourceTree = "<group>"; };
 		26BAFD702B212543004DCEEE /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		26BAFD712B212543004DCEEE /* MovieEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieEntity.swift; sourceTree = "<group>"; };
+		26FE91FB2B268D93002E88A0 /* SplashViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 		2608AA132B1F6AEF00E1E055 /* exerciseTests */ = {
 			isa = PBXGroup;
 			children = (
+				26FE91FB2B268D93002E88A0 /* SplashViewModelTests.swift */,
 				2608AA142B1F6AEF00E1E055 /* MoviesListViewModelTests.swift */,
 			);
 			path = exerciseTests;
@@ -330,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2608AA152B1F6AEF00E1E055 /* MoviesListViewModelTests.swift in Sources */,
+				26FE91FC2B268D93002E88A0 /* SplashViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

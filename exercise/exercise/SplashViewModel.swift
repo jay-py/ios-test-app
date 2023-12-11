@@ -15,7 +15,7 @@ final class SplashViewModel: ObservableObject {
     private var bag = Set<AnyCancellable>()
 
     @Published private(set) var isLoading: Bool = true
-    private var state: State = .idle {
+    internal var state: State = .idle {
         willSet {
             self.handleState(newValue == .error)
         }
@@ -51,7 +51,7 @@ final class SplashViewModel: ObservableObject {
         }
     }
 
-    private enum State {
+    internal enum State {
         case success, error, idle
     }
 }

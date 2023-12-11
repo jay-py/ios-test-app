@@ -22,6 +22,7 @@ import XCTest
     }
 
     func testDataPopulation() async throws {
+        try? await Task.sleep(nanoseconds: 5_000_000_000)  // wait for default init
         let retrieved = XCTestExpectation(description: "Data retrieved successfully")
         let cancellable = viewModel.$movies.sink { movies in
             if !movies.isEmpty {  // avoid initial empty setter call
