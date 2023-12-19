@@ -13,9 +13,9 @@ import XCTest
 
 @MainActor final class MoviesListViewModelTests: XCTestCase {
 
-    let viewModel = MoviesListViewModel(MoviesRepository())
-    var cancellables: Set<AnyCancellable> = []
-    internal enum Status { case idle, searching }
+    fileprivate let viewModel = MoviesListViewModel(MoviesRepository())
+    fileprivate var cancellables: Set<AnyCancellable> = []
+    fileprivate enum Status { case idle, searching }
 
     override func tearDownWithError() throws {
         cancellables.forEach { $0.cancel() }

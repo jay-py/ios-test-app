@@ -30,17 +30,15 @@ final class MoviesListViewModel: ObservableObject {
             .store(in: &bag)
     }
 
-    @MainActor
     func fetchData() async {
-        if let res = try? await moviesRepo.getMovies() {
+        if self.movies.isEmpty,
+            let res = try? await moviesRepo.getMovies()
+        {
             self.storedMovies = res
             self.setMovies(default: true)
-        } else {
-            print("\(TAG).fetchData() error: ")
         }
     }
 
-    @MainActor
     internal func filterMovies(query: String) {
         if query.isEmpty {
             self.setMovies(default: true)
@@ -61,7 +59,11 @@ final class MoviesListViewModel: ObservableObject {
                     self.movies = self.storedMovies
                 }
             } else {
-                self.movies = movies ?? []
+                if let res = movies,
+                    res != self.movies
+                {
+                    self.movies = res
+                }
             }
         }
     }

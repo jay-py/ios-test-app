@@ -25,7 +25,6 @@ final class SplashViewModel: ObservableObject {
         self.moviesRepo = moviesRepo
     }
 
-    @MainActor
     func fetchData() async {
         do {
             let _ = try await moviesRepo.getMovies()

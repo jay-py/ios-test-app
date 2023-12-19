@@ -12,7 +12,7 @@ final class DataController: NSPersistentContainer {
     internal static let shared = DataController()
     fileprivate let expirationTime: TimeInterval = 12 * 60 * 60  // 12 hours
     fileprivate let dataModel: String = "CachedDataModel"
-    
+
     fileprivate init() {
         guard
             let objectModelURL = Bundle.module.url(

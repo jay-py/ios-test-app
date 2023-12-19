@@ -13,8 +13,8 @@ import XCTest
 
 @MainActor final class SplashViewModelTests: XCTestCase {
 
-    let viewModel = SplashViewModel(MoviesRepository())
-    var cancellable: Set<AnyCancellable> = []
+    fileprivate let viewModel = SplashViewModel(MoviesRepository())
+    fileprivate var cancellable: Set<AnyCancellable> = []
 
     override func tearDownWithError() throws {
         cancellable.forEach { $0.cancel() }
