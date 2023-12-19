@@ -31,7 +31,7 @@ struct SplashView: View {
             Spacer()
         }
         .splashBackgroundColor()
-        .task(priority: .high) {
+        .task {
             await vm.fetchData()
         }
     }

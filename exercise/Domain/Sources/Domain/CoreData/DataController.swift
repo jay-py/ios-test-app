@@ -5,26 +5,33 @@
 //  Created by Jean paul on 2023-12-06.
 //
 import CoreData
-import Domain
 import SwiftUI
 
-final class DataController {
+final class DataController: NSPersistentContainer {
 
-    public static let shared = DataController()
-    private let container: NSPersistentContainer
-    private let expirationTime: TimeInterval = 12 * 60 * 60  // 12 hours
+    internal static let shared = DataController()
+    fileprivate let expirationTime: TimeInterval = 12 * 60 * 60  // 12 hours
+    fileprivate let dataModel: String = "CachedDataModel"
+    
+    fileprivate init() {
+        guard
+            let objectModelURL = Bundle.module.url(
+                forResource: self.dataModel, withExtension: "momd"),
+            let objectModel = NSManagedObjectModel(contentsOf: objectModelURL)
+        else {
+            fatalError("Failed to retrieve the object model")
+        }
+        super.init(name: self.dataModel, managedObjectModel: objectModel)
 
-    private init() {
-        container = NSPersistentContainer(name: "CachedDataModel")
-        container.loadPersistentStores { storeDescription, error in
+        self.loadPersistentStores { storeDescription, error in
             if let error = error {
                 fatalError("Unresolved error \(error)")
             }
         }
-        container.viewContext.automaticallyMergesChangesFromParent = true
+        self.viewContext.automaticallyMergesChangesFromParent = true
     }
 
-    internal func save(context: NSManagedObjectContext) async {
+    fileprivate func save(context: NSManagedObjectContext) async {
         do {
             context.performAndWait {
                 try? context.save()
@@ -32,15 +39,15 @@ final class DataController {
         }
     }
 
-    func cacheMovies(_ movies: [Movie]) async {
+    internal func cacheMovies(_ movies: [Movie]) async {
         for movie in movies {
             await self.cacheMovie(movie)
         }
         print(">> Saved items: ", movies.count)
     }
 
-    internal func cacheMovie(_ movie: Movie) async {
-        let context = self.container.viewContext
+    fileprivate func cacheMovie(_ movie: Movie) async {
+        let context = self.viewContext
         let cacheMovie = CachedMovie(context: context)
         cacheMovie.id = UUID()
         cacheMovie.expirationDate = Date().addingTimeInterval(expirationTime)
@@ -57,8 +64,8 @@ final class DataController {
         await save(context: context)
     }
 
-    func getMovies() async -> [Movie]? {
-        let context = self.container.viewContext
+    internal func getMovies() async -> [Movie]? {
+        let context = self.viewContext
         let request: NSFetchRequest<CachedMovie> = CachedMovie.fetchRequest()
 
         guard

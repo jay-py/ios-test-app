@@ -32,11 +32,11 @@ final class MoviesListViewModel: ObservableObject {
 
     @MainActor
     func fetchData() async {
-        if self.storedMovies.isEmpty,
-            let stored = await DataController.shared.getMovies()
-        {
-            self.storedMovies = stored
+        if let res = try? await moviesRepo.getMovies() {
+            self.storedMovies = res
             self.setMovies(default: true)
+        } else {
+            print("\(TAG).fetchData() error: ")
         }
     }
 

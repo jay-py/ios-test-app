@@ -12,6 +12,11 @@ public actor MoviesRepository {
     public init() {}
 
     public func getMovies(title: String = "batman", page: Int = 1) async throws -> [Movie] {
+        if let stored = await DataController.shared.getMovies(),
+            !stored.isEmpty
+        {
+            return stored
+        }
         let collection = try await NetworkAgent.fetchData(
             path: .search(title, page),
             responseType: MovieCollection.self
@@ -27,6 +32,7 @@ public actor MoviesRepository {
             }
         }
         print(">> Fetched items: ", res.count)
+        await DataController.shared.cacheMovies(res)
         return res
     }
 

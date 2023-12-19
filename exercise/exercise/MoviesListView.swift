@@ -22,7 +22,7 @@ struct MoviesListView: View {
     var body: some View {
         NavigationStack {
             content
-                .task(priority: .high) {
+                .task {
                     await vm.fetchData()
                 }
                 .searchable(
